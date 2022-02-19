@@ -1,36 +1,20 @@
-import React, { useContext, createContext, useState } from "react";
+import React, { useContext, createContext, useState } from "react"; //rfce
 import {
   BrowserRouter as Router,
-  Switch,
+  Routes,
   Route,
   Link,
-  Redirect,
-  useHistory,
+  Navigate,
+  useNavigate,
   useLocation,
 } from "react-router-dom";
 
-// This example has 3 pages: a public page, a protected
-// page, and a login screen. In order to see the protected
-// page, you must first login. Pretty standard stuff.
-//
-// First, visit the public page. Then, visit the protected
-// page. You're not yet logged in, so you are redirected
-// to the login page. After you login, you are redirected
-// back to the protected page.
-//
-// Notice the URL change each time. If you click the back
-// button at this point, would you expect to go back to the
-// login page? No! You're already logged in. Try it out,
-// and you'll see you go back to the page you visited
-// just *before* logging in, the public page.
-
-export default function AuthExample() {
+export default function Main() {
   return (
     <ProvideAuth>
       <Router>
         <div>
           <AuthButton />
-
           <ul>
             <li>
               <Link to="/public">Public Page</Link>
@@ -40,7 +24,7 @@ export default function AuthExample() {
             </li>
           </ul>
 
-          <Switch>
+          <Routes>
             <Route path="/public">
               <PublicPage />
             </Route>
@@ -50,7 +34,7 @@ export default function AuthExample() {
             <PrivateRoute path="/protected">
               <ProtectedPage />
             </PrivateRoute>
-          </Switch>
+          </Routes>
         </div>
       </Router>
     </ProvideAuth>
@@ -109,7 +93,7 @@ function useProvideAuth() {
 }
 
 function AuthButton() {
-  let history = useHistory();
+  let history = useNavigate();
   let auth = useAuth();
 
   return auth.user ? (
@@ -139,7 +123,7 @@ function PrivateRoute({ children, ...rest }) {
         auth.user ? (
           children
         ) : (
-          <Redirect
+          <Navigate
             to={{
               pathname: "/login",
               state: { from: location },
@@ -160,7 +144,7 @@ function ProtectedPage() {
 }
 
 function LoginPage() {
-  let history = useHistory();
+  let history = useNavigate();
   let location = useLocation();
   let auth = useAuth();
 
