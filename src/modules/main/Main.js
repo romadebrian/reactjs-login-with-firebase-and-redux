@@ -1,4 +1,4 @@
-import React, { useContext, createContext, useState } from "react"; //rfce
+import React, { useContext, createContext, useState, Fragment } from "react"; //rfce
 import {
   BrowserRouter as Router,
   Routes,
@@ -9,33 +9,37 @@ import {
   useLocation,
 } from "react-router-dom";
 
+import Dashboard from "../../pages/dashboard/Dashboard";
+import Admin from "../../pages/admin/Admin";
+
 export default function Main() {
   return (
     <ProvideAuth>
       <Router>
-        <div>
-          <AuthButton />
-          <ul>
-            <li>
-              <Link to="/public">Public Page</Link>
-            </li>
-            <li>
-              <Link to="/protected">Protected Page</Link>
-            </li>
-          </ul>
+        <Fragment>
+          <div>
+            <AuthButton />
+            <ul>
+              <li>
+                <Link to="/public">Public Page</Link>
+              </li>
+              <li>
+                <Link to="/protected">Protected Page</Link>
+              </li>
+            </ul>
 
-          <Routes>
-            <Route path="/public">
-              <PublicPage />
-            </Route>
-            <Route path="/login">
-              <LoginPage />
-            </Route>
-            <PrivateRoute path="/protected">
-              <ProtectedPage />
-            </PrivateRoute>
-          </Routes>
-        </div>
+            <Routes>
+              <Route exact path="/" element={<Admin />}>
+                <Route exact path="/" element={<Dashboard />} />
+              </Route>
+
+              {/* <Route exact path="/public" element={<Dashboard />} /> */}
+              {/* <PrivateRoute exact path="/protected" element={<Admin />} /> */}
+
+              <Route exact path="/login" element={<LoginPage />} />
+            </Routes>
+          </div>
+        </Fragment>
       </Router>
     </ProvideAuth>
   );
@@ -135,13 +139,13 @@ function PrivateRoute({ children, ...rest }) {
   );
 }
 
-function PublicPage() {
-  return <h3>Public</h3>;
-}
+// function PublicPage() {
+//   return <h3>Public</h3>;
+// }
 
-function ProtectedPage() {
-  return <h3>Protected</h3>;
-}
+// function ProtectedPage() {
+//   return <h3>Protected</h3>;
+// }
 
 function LoginPage() {
   let history = useNavigate();
