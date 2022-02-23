@@ -1,4 +1,4 @@
-import React, { useContext, createContext, useState } from "react"; //rfce
+import React, { useContext, createContext, useState, Fragment } from "react"; //rfce
 import {
   BrowserRouter as Router,
   Routes,
@@ -9,33 +9,43 @@ import {
   useLocation,
 } from "react-router-dom";
 
+import Dashboard from "../../pages/dashboard/Dashboard";
+import Admin from "../../pages/admin/Admin";
+
 export default function Main() {
+  const [statusLogin, setStatusLogin] = useState(false);
+
   return (
     <ProvideAuth>
       <Router>
-        <div>
-          <AuthButton />
-          <ul>
-            <li>
-              <Link to="/public">Public Page</Link>
-            </li>
-            <li>
-              <Link to="/protected">Protected Page</Link>
-            </li>
-          </ul>
+        <Fragment>
+          <div>
+            <AuthButton />
+            <ul>
+              <li>
+                <Link to="/public">Public Page</Link>
+              </li>
+              <li>
+                <Link to="/protected">Protected Page</Link>
+              </li>
+            </ul>
 
-          <Routes>
-            <Route path="/public">
-              <PublicPage />
-            </Route>
-            <Route path="/login">
-              <LoginPage />
-            </Route>
-            <PrivateRoute path="/protected">
-              <ProtectedPage />
-            </PrivateRoute>
-          </Routes>
-        </div>
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route exact path="/public" element={<Dashboard />} />
+              <Route
+                path="/protected"
+                element={
+                  <PrivateRoute>
+                    <Admin />
+                  </PrivateRoute>
+                }
+              />
+
+              <Route exact path="/login" element={<LoginPage />} />
+            </Routes>
+          </div>
+        </Fragment>
       </Router>
     </ProvideAuth>
   );
@@ -101,7 +111,7 @@ function AuthButton() {
       Welcome!{" "}
       <button
         onClick={() => {
-          auth.signout(() => history.push("/"));
+          auth.signout(() => history("/"));
         }}
       >
         Sign out
@@ -114,34 +124,33 @@ function AuthButton() {
 
 // A wrapper for <Route> that redirects to the login
 // screen if you're not yet authenticated.
+
 function PrivateRoute({ children, ...rest }) {
   let auth = useAuth();
-  return (
-    <Route
-      {...rest}
-      render={({ location }) =>
-        auth.user ? (
-          children
-        ) : (
-          <Navigate
-            to={{
-              pathname: "/login",
-              state: { from: location },
-            }}
-          />
-        )
-      }
-    />
-  );
+  let location = useLocation();
+  if (!auth.user) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  return children;
 }
 
-function PublicPage() {
-  return <h3>Public</h3>;
-}
+// const PrivateRoute = () => {
+//   const statusLogin = false;
+//   if (statusLogin) {
+//     return <Navigate to="/public" />;
+//   } else {
+//     return <Navigate to="/login" />;
+//   }
+// };
 
-function ProtectedPage() {
-  return <h3>Protected</h3>;
-}
+// function PublicPage() {
+//   return <h3>Public</h3>;
+// }
+
+// function ProtectedPage() {
+//   return <h3>Protected</h3>;
+// }
 
 function LoginPage() {
   let history = useNavigate();
@@ -151,7 +160,8 @@ function LoginPage() {
   let { from } = location.state || { from: { pathname: "/" } };
   let login = () => {
     auth.signin(() => {
-      history.replace(from);
+      // history.replace(from);
+      history(from, { replace: true });
     });
   };
 
