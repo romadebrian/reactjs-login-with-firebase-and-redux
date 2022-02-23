@@ -13,6 +13,8 @@ import Dashboard from "../../pages/dashboard/Dashboard";
 import Admin from "../../pages/admin/Admin";
 
 export default function Main() {
+  const [statusLogin, setStatusLogin] = useState(false);
+
   return (
     <ProvideAuth>
       <Router>
@@ -29,12 +31,16 @@ export default function Main() {
             </ul>
 
             <Routes>
-              <Route exact path="/" element={<Admin />}>
-                <Route exact path="/" element={<Dashboard />} />
-              </Route>
-
-              {/* <Route exact path="/public" element={<Dashboard />} /> */}
-              {/* <PrivateRoute exact path="/protected" element={<Admin />} /> */}
+              <Route path="/" element={<Dashboard />} />
+              <Route exact path="/public" element={<Dashboard />} />
+              <Route
+                path="/protected"
+                element={
+                  <PrivateRoute>
+                    <Admin />
+                  </PrivateRoute>
+                }
+              />
 
               <Route exact path="/login" element={<LoginPage />} />
             </Routes>
@@ -105,7 +111,7 @@ function AuthButton() {
       Welcome!{" "}
       <button
         onClick={() => {
-          auth.signout(() => history.push("/"));
+          auth.signout(() => history("/"));
         }}
       >
         Sign out
@@ -118,26 +124,25 @@ function AuthButton() {
 
 // A wrapper for <Route> that redirects to the login
 // screen if you're not yet authenticated.
+
 function PrivateRoute({ children, ...rest }) {
   let auth = useAuth();
-  return (
-    <Route
-      {...rest}
-      render={({ location }) =>
-        auth.user ? (
-          children
-        ) : (
-          <Navigate
-            to={{
-              pathname: "/login",
-              state: { from: location },
-            }}
-          />
-        )
-      }
-    />
-  );
+  let location = useLocation();
+  if (!auth.user) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  return children;
 }
+
+// const PrivateRoute = () => {
+//   const statusLogin = false;
+//   if (statusLogin) {
+//     return <Navigate to="/public" />;
+//   } else {
+//     return <Navigate to="/login" />;
+//   }
+// };
 
 // function PublicPage() {
 //   return <h3>Public</h3>;
@@ -155,7 +160,8 @@ function LoginPage() {
   let { from } = location.state || { from: { pathname: "/" } };
   let login = () => {
     auth.signin(() => {
-      history.replace(from);
+      // history.replace(from);
+      history(from, { replace: true });
     });
   };
 
