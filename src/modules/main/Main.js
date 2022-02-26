@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import Header from "./header/Header";
+import Footer from "./footer/Footer";
 
 import Home from "../../pages/home/Home";
 
@@ -11,6 +12,8 @@ export default class Main extends Component {
         <Header />
 
         <Home />
+
+        <Footer />
       </div>
     );
   }

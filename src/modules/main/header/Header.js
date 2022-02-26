@@ -6,7 +6,7 @@ function Header() {
   return (
     <div className="header">
       <span className="logo">
-        <h1>Header</h1>
+        <h1>Example</h1>
       </span>
       <span className="list-menu">
         <button>Home</button>
