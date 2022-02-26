@@ -9,6 +9,8 @@ import {
   useLocation,
 } from "react-router-dom";
 
+import "./Login.css";
+
 function Login() {
   const authContext = createContext();
   const auth = useContext(authContext);
@@ -43,9 +45,18 @@ function Login() {
   };
 
   return (
-    <div>
-      <p>You must log in to view the page at </p>
-      <button onClick={handleLogin}>Log in</button>
+    <div className="login-form">
+      <div className="card">
+        <h1>Login</h1>
+        <div className="body-card">
+          <input type="text" placeholder="Email" />
+
+          <input type="password" placeholder="Password" />
+        </div>
+        <button onClick={handleLogin} className="btn">
+          Login
+        </button>
+      </div>
     </div>
   );
 }
