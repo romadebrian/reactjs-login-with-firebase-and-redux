@@ -11,6 +11,7 @@ import {
 
 // import Dashboard from "./pages/dashboard/Dashboard";
 // import Admin from "./pages/admin/Admin";
+import Main from "./modules/main/Main";
 import Home from "./pages/home/Home";
 import Profile from "./pages/profile/Profile";
 import Login from "./modules/login/Login";
@@ -26,7 +27,7 @@ export default function App() {
       <Router>
         <Fragment>
           <Routes>
-            <Route exact path="/" element={<Home />} />
+            <Route exact path="/" element={<Main />} />
             <Route exact path="/home" element={<Home />} />
             <Route exact path="/login" element={<Login />} />
 
