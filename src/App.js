@@ -10,8 +10,9 @@ import {
 } from "react-router-dom";
 
 // import Dashboard from "./pages/dashboard/Dashboard";
+// import Admin from "./pages/admin/Admin";
 import Home from "./pages/home/Home";
-import Admin from "./pages/admin/Admin";
+import Profile from "./pages/profile/Profile";
 
 // import logo from "./logo.svg";
 // import "./App.css";
@@ -29,10 +30,11 @@ export default function App() {
             <Route exact path="/login" element={<LoginPage />} />
 
             <Route
-              path="/protected"
+              exact
+              path="/profile"
               element={
                 <PrivateRoute>
-                  <Admin />
+                  <Profile />
                 </PrivateRoute>
               }
             />
