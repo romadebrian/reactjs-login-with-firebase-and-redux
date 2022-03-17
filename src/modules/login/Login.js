@@ -26,10 +26,9 @@ function Login(props) {
   const handleLogin = () => {
     // console.log(user);
     props.handleSetUser(userEmail);
+    localStorage.setItem("token", JSON.stringify(userEmail));
 
-    // auth.signin(() => {
-    //   history(from, { replace: true });
-    // });
+    history("/");
   };
 
   const handleChange = (e) => {
@@ -38,8 +37,6 @@ function Login(props) {
   };
 
   const AuthButton = () => {
-    let history = useNavigate();
-
     return auth.user ? (
       <p>
         Welcome!{" "}
