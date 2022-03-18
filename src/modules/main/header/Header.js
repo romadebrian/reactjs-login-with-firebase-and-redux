@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 import "./Header.css";
 
-function Header() {
-  const [user, setUser] = useState("roma");
+function Header(props) {
   let navigate = useNavigate();
 
+  // console.log(props);
+
   const checkLogin = () => {
-    if (user === "") {
+    if (props.user === "") {
       return (
         <Link to="/login">
           <button>Login</button>
@@ -20,7 +22,7 @@ function Header() {
   };
 
   const handleLogout = (second) => {
-    setUser("");
+    props.handleSetUser();
   };
 
   return (
@@ -44,4 +46,16 @@ function Header() {
   );
 }
 
-export default Header;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleSetUser: () => dispatch({ type: "SET_USER", userEmail: "" }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -8,6 +8,8 @@ import {
   useLocation,
 } from "react-router-dom";
 
+import { connect } from "react-redux";
+
 import Header from "./header/Header";
 import Footer from "./footer/Footer";
 
@@ -15,8 +17,9 @@ import Home from "../../pages/home/Home";
 import NotFound from "../../pages/notfound/NotFound";
 import Profile from "../../pages/profile/Profile";
 
-export default class Main extends Component {
+class Main extends Component {
   render() {
+    // console.log(this.props);
     return (
       <ProvideAuth>
         <div>
@@ -117,3 +120,5 @@ const fakeAuth = {
 // function ProtectedPage() {
 //   return <h3>Protected</h3>;
 // }
+
+export default Main;

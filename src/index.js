@@ -28,6 +28,11 @@ const rootReducer = (state = globalState, action) => {
 //Store
 const storeRedux = createStore(rootReducer);
 
+// Subscription
+storeRedux.subscribe(() => {
+  console.log("store change: ", storeRedux.getState());
+});
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={storeRedux}>

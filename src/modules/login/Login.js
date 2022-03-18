@@ -1,4 +1,10 @@
-import React, { useContext, createContext, useState, Fragment } from "react"; //rfce
+import React, {
+  useContext,
+  createContext,
+  useState,
+  Fragment,
+  useEffect,
+} from "react"; //rfce
 import {
   BrowserRouter as Router,
   Routes,
@@ -19,9 +25,15 @@ function Login(props) {
   const history = useNavigate();
   let { from } = location.state || { from: { pathname: "/" } };
 
+  const [isloaded, setLoaded] = useState(false);
   const [userEmail, setUserEmail] = useState("");
 
-  console.log(props);
+  useEffect(() => {
+    if (isloaded === false) {
+      console.log(props);
+      setLoaded(true);
+    }
+  }, [isloaded]);
 
   const handleLogin = () => {
     // console.log(user);
