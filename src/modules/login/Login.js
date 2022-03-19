@@ -1,16 +1,6 @@
-import React, {
-  useContext,
-  createContext,
-  useState,
-  Fragment,
-  useEffect,
-} from "react"; //rfce
+import React, { useContext, createContext, useState, useEffect } from "react"; //rfce
 import {
   BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  Navigate,
   useNavigate,
   useLocation,
 } from "react-router-dom";
@@ -46,23 +36,6 @@ function Login(props) {
   const handleChange = (e) => {
     setUserEmail(e.target.value);
     // console.log(e.target.value);
-  };
-
-  const AuthButton = () => {
-    return auth.user ? (
-      <p>
-        Welcome!{" "}
-        <button
-          onClick={() => {
-            auth.signout(() => history("/"));
-          }}
-        >
-          Sign out
-        </button>
-      </p>
-    ) : (
-      <p>You are not logged in.</p>
-    );
   };
 
   return (

@@ -1,12 +1,10 @@
-import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import "./Header.css";
 
 function Header(props) {
-  let navigate = useNavigate();
-
   // console.log(props);
 
   const checkLogin = () => {
