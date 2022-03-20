@@ -50,7 +50,7 @@ class Main extends Component {
 let usernya = "";
 
 const mapStateToProps = (state) => {
-  console.log("log A", state);
+  console.log("log global state", state);
   usernya = state;
   return {
     state,
