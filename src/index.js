@@ -7,6 +7,10 @@ import reportWebVitals from "./reportWebVitals";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 
+// import firebase from "./config/firebase/";
+
+// console.log(firebase);
+
 const globalState = {
   user: "",
 };

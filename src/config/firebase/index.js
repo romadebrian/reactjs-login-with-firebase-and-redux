@@ -1,7 +1,5 @@
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
-import "firebase/compat/database";
-import "firebase/compat/storage";
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC9l1t-l55GCkR71kt_xhB-Npa5E6sOIUs",
@@ -10,14 +8,13 @@ const firebaseConfig = {
   projectId: "testfirebase-5d3b6",
   storageBucket: "testfirebase-5d3b6.appspot.com",
   messagingSenderId: "799266533322",
-  appId: "1:799266533322:web:fe7715e1f2d7261e98e933",
-  measurementId: "G-J5MMLZR6TN",
+  appId: "1:799266533322:web:e6f1c2292b346cc098e933",
+  measurementId: "G-H9NLL1YNME",
 };
 
-firebase.initializeApp(firebaseConfig);
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
-// export const getAuth = firebase.auth();
-// export const database = firebase.database();
-// export const storage = firebase.storage();
+export const auth = getAuth(app);
 
-export default firebase;
+export default app;
