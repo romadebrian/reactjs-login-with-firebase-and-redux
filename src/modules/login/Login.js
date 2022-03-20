@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react"; //rfce
-import {
-  BrowserRouter as Router,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { connect } from "react-redux";
 
@@ -13,9 +9,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import "./Login.css";
 
 function Login(props) {
-  const location = useLocation();
   const history = useNavigate();
-  let { from } = location.state || { from: { pathname: "/" } };
 
   const [isloaded, setLoaded] = useState(false);
   const [userEmail, setUserEmail] = useState("");
@@ -26,7 +20,7 @@ function Login(props) {
       console.log(props);
       setLoaded(true);
     }
-  }, [isloaded]);
+  }, [isloaded, props]);
 
   const handleLogin = () => {
     // console.log(user);
@@ -60,7 +54,7 @@ function Login(props) {
       setUserPassword(e.target.value);
     }
     // setUserEmail(e.target.value);
-    console.log(e.target.id);
+    // console.log(e.target.id);
   };
 
   return (
