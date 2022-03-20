@@ -1,12 +1,5 @@
-import React, { useState, useContext, createContext, Component } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import React, { Component } from "react";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 
 import { connect } from "react-redux";
 
