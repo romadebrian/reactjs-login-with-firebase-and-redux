@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 import { connect } from "react-redux";
 
-import "../../config/firebase";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../config/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 import "./Login.css";
 
@@ -24,7 +24,7 @@ function Login(props) {
 
   const handleLogin = () => {
     // console.log(user);
-    const auth = getAuth();
+    // const auth = getAuth();
     signInWithEmailAndPassword(auth, userEmail, userPassword)
       .then((userCredential) => {
         // Signed in
@@ -47,16 +47,6 @@ function Login(props) {
       });
   };
 
-  const handleChange = (e) => {
-    if (e.target.id === "Email") {
-      setUserEmail(e.target.value);
-    } else if (e.target.id === "Password") {
-      setUserPassword(e.target.value);
-    }
-    // setUserEmail(e.target.value);
-    // console.log(e.target.id);
-  };
-
   return (
     <div className="login-form">
       <div className="card">
@@ -66,14 +56,18 @@ function Login(props) {
             id="Email"
             type="text"
             placeholder="Email"
-            onChange={(e) => handleChange(e)}
+            onChange={(event) => {
+              setUserEmail(event.target.value);
+            }}
           />
 
           <input
             id="Password"
             type="password"
             placeholder="Password"
-            onChange={(e) => handleChange(e)}
+            onChange={(event) => {
+              setUserPassword(event.target.value);
+            }}
           />
         </div>
         <button onClick={handleLogin} className="btn">
