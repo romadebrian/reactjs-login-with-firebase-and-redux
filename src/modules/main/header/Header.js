@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { auth } from "../../../config/firebase";
+import { signOut } from "firebase/auth";
 
 import "./Header.css";
 
@@ -15,12 +17,13 @@ function Header(props) {
         </Link>
       );
     } else {
-      return <button onClick={(e) => handleLogout()}>Logout</button>;
+      return <button onClick={handleLogout}>Logout</button>;
     }
   };
 
   const handleLogout = (second) => {
-    props.handleSetUser();
+    signOut(auth);
+    props.SetUserLogout();
   };
 
   return (
@@ -52,7 +55,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleSetUser: () => dispatch({ type: "SET_USER", userEmail: "" }),
+    SetUserLogout: () => dispatch({ type: "SET_USER", userEmail: "" }),
   };
 };
 
