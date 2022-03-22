@@ -1,13 +1,22 @@
-import React, { useState } from "react"; //rcc
+import React, { useEffect, useState } from "react"; //rcc
 import { auth } from "../../config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
 function Profile(props) {
   const [user, setUser] = useState({});
 
-  onAuthStateChanged(auth, (currentUser) => {
-    // console.log(currentUser);
-    setUser(currentUser);
+  useEffect(() => {
+    // componentDidMount
+
+    onAuthStateChanged(auth, (currentUser) => {
+      // console.log(currentUser);
+      setUser(currentUser);
+    });
+
+    // componentWillUnmount
+    return function cleanup() {
+      setUser("");
+    };
   });
 
   return (
