@@ -17,7 +17,7 @@ function Login(props) {
 
   useEffect(() => {
     if (isloaded === false) {
-      console.log(props);
+      // console.log(props);
       setLoaded(true);
     }
   }, [isloaded, props]);
