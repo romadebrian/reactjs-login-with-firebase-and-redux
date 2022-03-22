@@ -1,12 +1,22 @@
-import React, { Component } from "react"; //rcc
+import React, { useState } from "react"; //rcc
+import { auth } from "../../config/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
-export default class Profile extends Component {
-  render() {
-    return (
-      <div>
-        <h1>Profile User</h1>
-        <p>Nama User: Roma Debrian</p>
-      </div>
-    );
-  }
+function Profile(props) {
+  const [user, setUser] = useState({});
+
+  onAuthStateChanged(auth, (currentUser) => {
+    // console.log(currentUser);
+    setUser(currentUser);
+  });
+
+  return (
+    <div>
+      <h1>Profile User</h1>
+      <p>Email : {auth.currentUser.email}</p>
+      <p>UID : {user.uid}</p> {/* {user?.uid} */}
+    </div>
+  );
 }
+
+export default Profile;
