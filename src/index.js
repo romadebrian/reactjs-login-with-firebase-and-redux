@@ -4,38 +4,8 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-import { createStore } from "redux";
 import { Provider } from "react-redux";
-
-// import firebase from "./config/firebase/";
-
-// console.log(firebase);
-
-const globalState = {
-  user: "",
-};
-
-//Reducer
-const rootReducer = (state = globalState, action) => {
-  // console.log("aksi", action);
-
-  if (action.type === "SET_USER") {
-    return {
-      ...state,
-      user: action.userEmail,
-    };
-  }
-
-  return state;
-};
-
-//Store
-const storeRedux = createStore(rootReducer);
-
-// Subscription
-storeRedux.subscribe(() => {
-  console.log("store change: ", storeRedux.getState());
-});
+import { storeRedux } from "./redux/redux";
 
 ReactDOM.render(
   <React.StrictMode>
