@@ -7,13 +7,23 @@ export default class Home extends Component {
     user: {},
   };
 
+  _isMounted = false;
+
   componentDidMount() {
+    this._isMounted = true;
+
     onAuthStateChanged(auth, (currentUser) => {
       // console.log(currentUser);
-      this.setState({
-        user: currentUser,
-      });
+      if (this._isMounted) {
+        this.setState({
+          user: currentUser,
+        });
+      }
     });
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {
