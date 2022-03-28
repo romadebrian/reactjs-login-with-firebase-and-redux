@@ -8,22 +8,20 @@ function Profile(props) {
   useEffect(() => {
     // componentDidMount
 
-    onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       // console.log(currentUser);
       setUser(currentUser);
     });
 
     // componentWillUnmount
-    return function cleanup() {
-      setUser("");
-    };
+    return () => unsubscribe;
   });
 
   return (
     <div>
       <h1>Profile User</h1>
-      <p>Email : {auth.currentUser.email}</p>
-      <p>UID : {user.uid}</p> {/* {user?.uid} */}
+      <p>Email : {auth.currentUser?.email}</p>
+      <p>UID : {user?.uid}</p> {/* {user?.uid} */}
     </div>
   );
 }
