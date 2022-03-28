@@ -7,14 +7,13 @@ function Profile(props) {
 
   useEffect(() => {
     // componentDidMount
-
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       // console.log(currentUser);
       setUser(currentUser);
     });
 
     // componentWillUnmount
-    return () => unsubscribe;
+    return unsubscribe;
   });
 
   return (
