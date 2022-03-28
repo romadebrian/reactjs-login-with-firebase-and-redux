@@ -20,7 +20,6 @@ class Main extends Component {
         <Routes>
           <Route path="/" element={<Home />}></Route>
 
-          {/* <Route exact path="/profile" element={<Profile />} /> */}
           <Route
             exact
             path="/profile"
@@ -40,21 +39,20 @@ class Main extends Component {
   }
 }
 
-let usernya = "";
+let usernya = null;
 
 const mapStateToProps = (state) => {
   console.log("log global state", state);
   usernya = state;
-  return {
-    state,
-  };
+
+  return state;
 };
 
 function PrivateRoute({ children }) {
-  let user = usernya.user;
+  let user = usernya?.user;
   let location = useLocation();
 
-  // console.log("log B", user);
+  console.log("log B", user);
   if (!user) {
     alert("you are not logged in");
     return <Navigate to="/login" state={{ from: location }} replace />;
