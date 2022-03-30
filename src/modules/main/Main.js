@@ -42,18 +42,18 @@ class Main extends Component {
 let usernya = null;
 
 const mapStateToProps = (state) => {
-  console.log("log global state", state);
+  // console.log("log global state", state);
   usernya = state;
 
   return state;
 };
 
 function PrivateRoute({ children }) {
-  let user = usernya?.user;
+  let IsLogin = usernya.user != null;
   let location = useLocation();
 
-  console.log("log B", user);
-  if (!user) {
+  console.log("IsLogin:", IsLogin);
+  if (!IsLogin) {
     alert("you are not logged in");
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
