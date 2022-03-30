@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"; //rcc
 import { auth } from "../../config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
-function Profile(props) {
+function Profile() {
   const [user, setUser] = useState({});
 
   useEffect(() => {
