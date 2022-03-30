@@ -10,7 +10,7 @@ function Header(props) {
   // console.log(props);
 
   const checkLogin = () => {
-    if (props.user === "") {
+    if (props.user === null) {
       return (
         <Link to="/login">
           <button>Login</button>
@@ -23,7 +23,6 @@ function Header(props) {
 
   const handleLogout = (second) => {
     signOut(auth);
-    props.SetUserLogout();
   };
 
   return (
@@ -53,10 +52,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    SetUserLogout: () => dispatch({ type: "SET_USER", userEmail: "" }),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps)(Header);
