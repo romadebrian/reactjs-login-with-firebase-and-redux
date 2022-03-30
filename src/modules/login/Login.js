@@ -24,7 +24,6 @@ function Login(props) {
 
   const handleLogin = () => {
     // console.log(user);
-    // const auth = getAuth();
     signInWithEmailAndPassword(auth, userEmail, userPassword)
       .then((userCredential) => {
         // Signed in
@@ -33,8 +32,6 @@ function Login(props) {
         console.log("Login Sucess");
         console.log("UserId: ", user.uid);
         console.log("Email: ", user.email);
-
-        props.handleSetUser(userEmail);
         localStorage.setItem("token", JSON.stringify(user.uid));
         history("/");
       })
@@ -84,10 +81,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    handleSetUser: (value) => dispatch({ type: "SET_USER", userEmail: value }),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps)(Login);
