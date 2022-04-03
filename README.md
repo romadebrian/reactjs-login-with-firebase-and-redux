@@ -1,4 +1,4 @@
-<h1> This example of reacJs login with firebase and react redux </h1>
+<h1> This example of reactJs login with firebase and react redux </h1>
 
 #Example account
 Email : test.email@yahoo.com
