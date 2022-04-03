@@ -1,6 +1,7 @@
 <h1> This example of reactJs login with firebase and react redux </h1>
 
-#Example account
+# Example account
+
 Email : test.email@yahoo.com
 Password : 123456789
 
